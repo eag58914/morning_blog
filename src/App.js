@@ -21,7 +21,7 @@ class App extends Component {
 		]
 	};
 
-	handleClick = (event) => {
+	handleShowForm = (event) => {
 		this.setState({
 			isShowing: !this.state.isShowing
 		});
@@ -41,10 +41,12 @@ class App extends Component {
 		return (
 			<div className="App container">
 				<Nav />
-				<BlogForm />
-				{this.state.isShowing ? title : null}
+				{this.state.isShowing ? (
+					<BlogForm handleToggle={this.handleShowForm} />
+				) : (
+					<button onClick={this.handleShowForm}>Add Posts </button>
+				)}
 				<ul>{composedPosts}</ul>
-				<button onClick={this.handleClick}>click me </button>
 				<Footer />
 			</div>
 		);
