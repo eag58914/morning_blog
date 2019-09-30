@@ -13,14 +13,32 @@ class BlogForm extends Component {
 			[event.target.name]: event.target.value
 		});
 	};
+
+	handleSubmit = (event) => {
+		event.preventDefault();
+		console.log('line 19 in BlogPost/index :', event);
+		this.props.handleAddPost({ ...this.state }); //this is what actuallt sets the state
+	};
 	render() {
 		return (
-			<form className="blog-form">
+			<form className="blog-form" onSubmit={this.handleSubmit}>
 				<h1>{this.state.title}</h1>
-				<input onChange={this.handleOnChange} value={this.state.title} type="text" name="title" />
+				<div className="post-title-author">
+					{''}
+					<label>Title</label>
+					<input onChange={this.handleOnChange} value={this.state.title} type="text" name="title" />
+				</div>
+				<label>Author</label>
 				<input type="text" name="user" onChange={this.handleOnChange} />
-				<input type="text" name="content" onChange={this.handleOnChange} />
-				<button onClick={this.props.handleToggle}>close</button>
+
+				<div>
+					<label>New Post</label>
+					<textarea type="text" name="content" onChange={this.handleOnChange} />
+					<input type="submit" />
+					<button className="button-primary" onClick={this.props.handleToggle}>
+						close
+					</button>
+				</div>
 			</form>
 		);
 	}
@@ -29,5 +47,6 @@ class BlogForm extends Component {
 export default BlogForm;
 
 BlogForm.propTypes = {
-	handleToggle: PropTypes.func
+	handleToggle: PropTypes.func,
+	handleAddPost: PropTypes.func
 };
